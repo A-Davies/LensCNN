@@ -15,17 +15,16 @@ def CNN(Bands,Size,Filepath):
     
     model = Sequential()
         
-    model.add(Convolution2D(30, (15, 15), padding='valid', input_shape=(int(Bands), int(Size[0]), int(Size[1])), activation='relu', kernel_initializer='he_uniform', bias_initializer='zeros', name='convolution_1'))
-    model.add(Convolution2D(30, (15, 15), activation='relu'))
-    model.add(Convolution2D(15, (5, 5), activation='relu'))
-    model.add(Convolution2D(15, (5, 5), activation='relu'))
+    model.add(Convolution2D(30, (15, 15), padding='valid', input_shape=(int(Bands), int(Size[0]), int(Size[1])), activation='relu', kernel_initializer='he_normal',, bias_initializer='zeros', name='convolution_1'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.2))
+    model.add(Convolution2D(30, (15, 15), activation='relu', kernel_initializer='he_normal'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Convolution2D(15, (5, 5), activation='relu', kernel_initializer='he_normal'))
+    model.add(Convolution2D(15, (5, 5), activation='relu', kernel_initializer='he_normal'))
+    #model.add(Dropout(0.2))
     model.add(Flatten())
-    model.add(Dense(400, activation='relu'))
-    model.add(Dense(100, activation='relu'))
-    model.add(Dense(20, activation='relu'))
-    model.add(Dense(1, activation='sigmoid'))
+    model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
+    model.add(Dense(1, activation='sigmoid', kernel_initializer='he_normal'))
     
     # Compile model
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
